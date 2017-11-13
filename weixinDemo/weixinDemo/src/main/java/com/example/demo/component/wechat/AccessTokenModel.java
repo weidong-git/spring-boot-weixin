@@ -2,40 +2,30 @@ package com.example.demo.component.wechat;
 
 public class AccessTokenModel {
 
-    private boolean success;
-    private String msg;
-    private String key;
+    private String access_token;
+    private Integer expires_in;
 
-    public boolean isSuccess() {
-        return success;
+    public String getAccess_token() {
+        return access_token;
     }
 
-    public void setSuccess(boolean success) {
-        this.success = success;
+    public void setAccess_token(String access_token) {
+        this.access_token = access_token;
     }
 
-    public String getMsg() {
-        return msg;
+    public Integer getExpires_in() {
+        return expires_in;
     }
 
-    public void setMsg(String msg) {
-        this.msg = msg;
-    }
-
-    public String getKey() {
-        return key;
-    }
-
-    public void setKey(String key) {
-        this.key = key;
+    public void setExpires_in(Integer expires_in) {
+        this.expires_in = expires_in;
     }
 
     @Override
     public String toString() {
         return "AccessTokenModel{" +
-                "success=" + success +
-                ", msg='" + msg + '\'' +
-                ", key='" + key + '\'' +
+                "access_token='" + access_token + '\'' +
+                ", expires_in=" + expires_in +
                 '}';
     }
 }

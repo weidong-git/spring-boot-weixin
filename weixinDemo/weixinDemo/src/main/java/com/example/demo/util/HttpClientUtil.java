@@ -16,6 +16,9 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.client.utils.URIBuilder;
+import org.apache.http.entity.BasicHttpEntity;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 
@@ -97,6 +100,21 @@ public class HttpClientUtil {
         return getResult(httpPost);
     }
 
+    public static String httpJsonPostRequest(String url,String json){
+        HttpPost httpPost = new HttpPost(url);
+        StringEntity stringEntity = new StringEntity(json,"utf-8");
+        stringEntity.setContentEncoding("UTF-8");
+        stringEntity.setContentType("application/json");
+        httpPost.setEntity(stringEntity);
+        return getResult(httpPost);
+    }
+
+    public static String httpMultipartPostRequest(String url,MultipartEntityBuilder multipartEntityBuilder){
+        HttpPost httpPost = new HttpPost(url);
+        httpPost.setEntity(multipartEntityBuilder.build());
+        return getResult(httpPost);
+    }
+
     public static String httpPostRequest(String url, Map<String, Object> headers, Map<String, Object> params)
             throws UnsupportedEncodingException{
         HttpPost httpPost = new HttpPost(url);
@@ -133,7 +151,6 @@ public class HttpClientUtil {
             CloseableHttpResponse response = httpClient.execute(request);
             //response.getStatusLine().getStatusCode();
             HttpEntity entity = response.getEntity();
-            System.out.println("entity:"+entity);
             if(entity!=null){
                 //long len = entity.getContentLength();// -1 表示长度未知
                 String result = EntityUtils.toString(entity);
